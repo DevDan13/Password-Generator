@@ -13,7 +13,7 @@ var numArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var lowerArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var upperArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var specialArray = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"];
-var userSelection;
+var userArray;
 
 //make upper case array? Remove if neccessary.
 
@@ -25,6 +25,9 @@ var generateBtn = document.querySelector("#generate");
 // ask user questions for which characters on the keyboard to use to generate a passsword.
 //is there a more DRY way to complete the task of this function?
 function generatePassword() {
+  
+  var passwordArray = [];
+
   userChoice = parseInt(prompt("How many characters would you like in your password? Choose between 8 and 128"));
 
   if (!userChoice) {
@@ -43,81 +46,96 @@ function generatePassword() {
   };
 
 
-
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
+  //checks to confim user chooses at least one type
   if (!confirmNumArray && !confirmLowerArray && !confirmUpperArray && !confirmSpecialArray) {
-    userSelection = alert("You must choose a character type to be generated in the passsword!");
+    userArray = alert("You must choose a character type to be generated in the passsword!");
   }
 
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
   //4 true selections
   else if (confirmNumArray && confirmLowerArray && confirmUpperArray && confirmSpecialArray) {
 
-    userSelection = numArray.concat(lowerArray, upperArray, specialArray);
+    userArray = numArray.concat(lowerArray, upperArray, specialArray);
   }
 
 
-
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
   //all cases for 3 true selections
   else if (confirmNumArray && confirmLowerArray && confirmUpperArray) {
-    userSelection = numArray.concat(lowerArray, upperArray);
+    userArray = numArray.concat(lowerArray, upperArray);
   }
 
   else if (confirmNumArray && confirmLowerArray && confirmSpecialArray) {
-    userSelection = numArray.concat(lowerArray, specialArray);
+    userArray = numArray.concat(lowerArray, specialArray);
   }
 
   else if (confirmNumArray && confirmUpperArray && confirmSpecialArray) {
-    userSelection = numArray.concat(upperArray, specialArray);
+    userArray = numArray.concat(upperArray, specialArray);
   }
 
   else if (confirmLowerArray && confirmUpperArray && confirmSpecialArray) {
-    userSelection = lowerArray.concat(upperArray, specialArray);
+    userArray = lowerArray.concat(upperArray, specialArray);
   }
 
 
-
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
   //all cases for 2 true selections
   else if (confirmNumArray && confirmLowerArray) {
-    userSelection = numArray.concat(lowerArray);
+    userArray = numArray.concat(lowerArray);
   } 
 
   else if (confirmNumArray && confirmUpperArray) {
-    userSelection = numArray.concat(upperArray);
+    userArray = numArray.concat(upperArray);
   } 
   else if (confirmNumArray && confirmSpecialArray) {
-    userSelection = numArray.concat(specialArray);
+    userArray = numArray.concat(specialArray);
   }
 
   else if (confirmLowerArray && confirmUpperArray) {
-    userSelection = lowerArray.concat(upperArray);
+    userArray = lowerArray.concat(upperArray);
   } 
 
   else if (confirmLowerArray && confirmSpecialArray) {
-    userSelection = lowerArray.concat(specialArray);
+    userArray = lowerArray.concat(specialArray);
   } 
 
   else if (confirmUpperArray && confirmSpecialArray) {
-    userSelection = upperArray.concat(specialArray);
+    userArray = upperArray.concat(specialArray);
   }
 
 
-
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
   //all cases for 1 true selection
   else if (confirmNumArray) {
-    userSelection = numArray;
+    userArray = numArray;
   }
 
   else if (confirmLowerArray) {
-    userSelection = lowerArray;
+    userArray = lowerArray;
   }
 
   else if (confirmUpperArray) {
-    userSelection = upperArray;
+    userArray = upperArray;
   }
 
   else if (confirmSpecialArray) {
-    userSelection = specialArray;
-  }
+    userArray = specialArray;
+  };
 
+
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
+  //local variable passwordArray stores in it random values pulled from the userArray for as long of a password as the user specified.
+  for(var i = 0; i<userChoice; i++){
+    var userSelections = userArray[Math.floor(Math.random() * userArray.length)];
+    passwordArray.push(userSelections);
+  }  
 }
 //if(user wants numbers is true)
 //pass array as a paramater to a function I make that pushes the array to a new array of any and all character types. ex userArray.
@@ -134,7 +152,7 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-//generate each time button is clicked?
+//mess around with order of the code? currently works as is.
 generateBtn.addEventListener("click", writePassword);
 
 
