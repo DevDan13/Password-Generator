@@ -22,11 +22,16 @@ var userArray;
 var generateBtn = document.querySelector("#generate");
 
 
+function displayPassword(showPassword) {
+  document.getElementById("password").textContent = showPassword;
+}
+
 // ask user questions for which characters on the keyboard to use to generate a passsword.
 //is there a more DRY way to complete the task of this function?
 function generatePassword() {
   
   var passwordArray = [];
+  var showPassword;
 
   userChoice = parseInt(prompt("How many characters would you like in your password? Choose between 8 and 128"));
 
@@ -136,6 +141,11 @@ function generatePassword() {
     var userSelections = userArray[Math.floor(Math.random() * userArray.length)];
     passwordArray.push(userSelections);
   }  
+
+
+  showPassword = passwordArray.join("");
+  displayPassword(passwordArray);
+  return showPassword;
 }
 //if(user wants numbers is true)
 //pass array as a paramater to a function I make that pushes the array to a new array of any and all character types. ex userArray.
@@ -154,5 +164,4 @@ function writePassword() {
 // Add event listener to generate button
 //mess around with order of the code? currently works as is.
 generateBtn.addEventListener("click", writePassword);
-
 
