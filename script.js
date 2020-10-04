@@ -17,7 +17,7 @@ function displayPassword(showPassword) {
 
 //This functiontakes input from the user and askes them all the nesscesary questions to generate the password.  
 //These questions are set equal to boolean variable confirms that are validated to ensure the user input the correct data.
-//each possible case the user could select for their password is covered in the if else if sections from all 4 values to only one.
+//each possible case the user could select for their password is covered in the if  if sections from all 4 values to only one.
 //these selections are concatinated to the userArray which is passed to a for loop that ranomizes the data in the array and stores 
 //it in userSelections.  user  selections is then pushed into the passwordArray using the push method. 
 //finally the showpassWord variable stores the password array as a string and is used as an argument for thr displayPassword function.
@@ -44,7 +44,7 @@ function generatePassword() {
     userChoice = parseInt(prompt("You must choose a value between 8 and 128"));
   }
 
-  else {
+  else{
     confirmNumArray = confirm("would you like numbers in this password?");
     confirmLowerArray = confirm("would you like lower case letters in this password?");
     confirmUpperArray = confirm("would you like upper case letters in this password?");
@@ -56,93 +56,55 @@ function generatePassword() {
   //-----------------------------------------------------------------------------------------------------------------
   //checks to confim user chooses at least one type
   if (!confirmNumArray && !confirmLowerArray && !confirmUpperArray && !confirmSpecialArray) {
-    userArray = alert("You must choose a character type to be generated in the passsword!");
+    alert("You must choose a character type to be generated in the passsword!");
   }
-
-  //-----------------------------------------------------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------------------------------------
-  //4 true selections
-  else if (confirmNumArray && confirmLowerArray && confirmUpperArray && confirmSpecialArray) {
-
-    userArray = numArray.concat(lowerArray, upperArray, specialArray);
-  }
-
-
-  //-----------------------------------------------------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------------------------------------
-  //all cases for 3 true selections
-  else if (confirmNumArray && confirmLowerArray && confirmUpperArray) {
-    userArray = numArray.concat(lowerArray, upperArray);
-  }
-
-  else if (confirmNumArray && confirmLowerArray && confirmSpecialArray) {
-    userArray = numArray.concat(lowerArray, specialArray);
-  }
-
-  else if (confirmNumArray && confirmUpperArray && confirmSpecialArray) {
-    userArray = numArray.concat(upperArray, specialArray);
-  }
-
-  else if (confirmLowerArray && confirmUpperArray && confirmSpecialArray) {
-    userArray = lowerArray.concat(upperArray, specialArray);
-  }
-
-
-  //-----------------------------------------------------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------------------------------------
-  //all cases for 2 true selections
-  else if (confirmNumArray && confirmLowerArray) {
-    userArray = numArray.concat(lowerArray);
-  } 
-
-  else if (confirmNumArray && confirmUpperArray) {
-    userArray = numArray.concat(upperArray);
-  } 
-  else if (confirmNumArray && confirmSpecialArray) {
-    userArray = numArray.concat(specialArray);
-  }
-
-  else if (confirmLowerArray && confirmUpperArray) {
-    userArray = lowerArray.concat(upperArray);
-  } 
-
-  else if (confirmLowerArray && confirmSpecialArray) {
-    userArray = lowerArray.concat(specialArray);
-  } 
-
-  else if (confirmUpperArray && confirmSpecialArray) {
-    userArray = upperArray.concat(specialArray);
-  }
-
-
-  //-----------------------------------------------------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------------------------------------
-  //all cases for 1 true selection
-  else if (confirmNumArray) {
-    userArray = numArray;
-  }
-
-  else if (confirmLowerArray) {
-    userArray = lowerArray;
-  }
-
-  else if (confirmUpperArray) {
-    userArray = upperArray;
-  }
-
-  else if (confirmSpecialArray) {
-    userArray = specialArray;
-  };
 
 
   //-----------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------
   //local variable passwordArray stores in it random values pulled from the userArray for as long of a password as the user specified.
-  for(var i = 0; i<userChoice; i++){
-    var userSelections = userArray[Math.floor(Math.random() * userArray.length)];
-    passwordArray.push(userSelections);
-  }  
+  
+  
+  function randomize(){
+    var randomIndex;
+    var randomEl;
+    var chosenIndex = [];
+    var passwordIndex;
+    var passwordEl;
 
+    if(confirmNumArray){
+      randomIndex = Math.floor(Math.random() * numArray.length);
+      randomEl = numArray[randomIndex];
+      chosenIndex.push(randomEl);
+    }
+    if(confirmLowerArray){
+      randomIndex = Math.floor(Math.random() * lowerArray.length);
+      randomEl = lowerArray[randomIndex];
+      chosenIndex.push(randomEl);
+    }
+    if(confirmUpperArray){
+      randomIndex = Math.floor(Math.random() * upperArray.length);
+      randomEl = upperArray[randomIndex];
+      chosenIndex.push(randomEl);
+    }
+    if(confirmSpecialArray){
+      randomIndex = Math.floor(Math.random() * specialArray.length);
+      randomEl = specialArray[randomIndex];
+      chosenIndex.push(randomEl);
+    }
+    
+    console.log(chosenIndex);
+    passwordIndex = Math.floor(Math.random() * chosenIndex.length);
+    passwordEl = chosenIndex[passwordIndex];
+    //console.log(passwordIndex);
+    //console.log(passwordEl);
+    return passwordEl;
+  }
+  
+  for(passwordArray.length; passwordArray.length < userChoice;){
+    passwordArray.push(randomize());
+  }  
+  //console.log(passwordArray);
 
 
   showPassword = passwordArray.join("");
