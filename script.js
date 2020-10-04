@@ -62,7 +62,7 @@ function generatePassword() {
 
   //-----------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------
-  //local variable passwordArray stores in it random values pulled from the userArray for as long of a password as the user specified.
+  //local variable passwordArray stores in it random values pulled from randomize() for as long of a password as the user specified.
   
   
   function randomize(){
@@ -77,30 +77,36 @@ function generatePassword() {
       randomEl = numArray[randomIndex];
       chosenIndex.push(randomEl);
     }
+
     if(confirmLowerArray){
       randomIndex = Math.floor(Math.random() * lowerArray.length);
       randomEl = lowerArray[randomIndex];
       chosenIndex.push(randomEl);
     }
+    
     if(confirmUpperArray){
       randomIndex = Math.floor(Math.random() * upperArray.length);
       randomEl = upperArray[randomIndex];
       chosenIndex.push(randomEl);
     }
+
     if(confirmSpecialArray){
       randomIndex = Math.floor(Math.random() * specialArray.length);
       randomEl = specialArray[randomIndex];
       chosenIndex.push(randomEl);
     }
     
-    console.log(chosenIndex);
+    //console.log(chosenIndex);
     passwordIndex = Math.floor(Math.random() * chosenIndex.length);
     passwordEl = chosenIndex[passwordIndex];
     //console.log(passwordIndex);
     //console.log(passwordEl);
     return passwordEl;
   }
-  
+
+  //-----------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------------------------
+
   for(passwordArray.length; passwordArray.length < userChoice;){
     passwordArray.push(randomize());
   }  
